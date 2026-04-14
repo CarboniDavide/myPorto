@@ -1,0 +1,7 @@
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - github-pages
+url: ""
+title: My Portfolio
+repository: CarboniDavide/myPorto
