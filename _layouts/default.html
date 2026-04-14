@@ -1,22 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
   <head>
     <meta charset="utf-8">
     <title>{{ page.title }}</title>
-    <link rel="stylesheet" href="/assets/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/style.css">
   </head>
   <body>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/progetti.html">Progetti</a>
-      <a href="/contatti.html">Contatti</a>
+    <nav class="navbar">
+      <div class="container nav-flex">
+        <div class="logo">&lt;/&gt; Nome Cognome</div>
+        <div class="nav-links">
+          <a href="/">Home</a>
+          <a href="/progetti.html">Progetti</a>
+          <a href="/contatti.html">Contatti</a>
+        </div>
+      </div>
     </nav>
-    <main>
+    <main class="container">
       {{ content }}
     </main>
     <footer>
-      <p>&copy; 2026 Nome Cognome</p>
+      <div class="container">
+        <p>&copy; 2026 Nome Cognome &mdash; Portfolio</p>
+      </div>
     </footer>
   </body>
 </html>
