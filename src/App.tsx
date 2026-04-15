@@ -1,76 +1,74 @@
+import { useEffect, useState } from 'react'
 import './App.css'
-
-const projects = [
-  {
-    title: 'Commerce Pulse',
-    description:
-      'Dashboard e-commerce con analytics in tempo reale, filtri dinamici e export CSV.',
-    stack: ['React', 'TypeScript', 'Recharts', 'Node API'],
-    link: '#',
-  },
-  {
-    title: 'Studio Booking',
-    description:
-      'Piattaforma di prenotazione per professionisti con calendario, pagamenti e reminder automatici.',
-    stack: ['React', 'Supabase', 'Stripe', 'Tailwind'],
-    link: '#',
-  },
-  {
-    title: 'Travel Notes',
-    description:
-      'Web app mobile-first per creare itinerari, salvare luoghi e condividere mappe personalizzate.',
-    stack: ['React', 'TypeScript', 'Mapbox', 'PWA'],
-    link: '#',
-  },
-]
-
-const skills = [
-  'React + TypeScript',
-  'UI Engineering',
-  'Design Systems',
-  'REST API Integration',
-  'Performance Web',
-  'Testing (Vitest)',
-]
+import {
+  DEFAULT_LANGUAGE,
+  STORAGE_KEY,
+  translations,
+} from './i18n/translations'
+import { SUPPORTED_LANGUAGES, type Language } from './i18n/types'
 
 function App() {
+  const [language, setLanguage] = useState<Language>(() => {
+    const stored = localStorage.getItem(STORAGE_KEY) as Language | null
+    if (stored && SUPPORTED_LANGUAGES.includes(stored)) {
+      return stored
+    }
+    return DEFAULT_LANGUAGE
+  })
+
+  useEffect(() => {
+    document.documentElement.lang = language
+    localStorage.setItem(STORAGE_KEY, language)
+  }, [language])
+
+  const t = translations[language]
+
   return (
     <div className="site-shell">
       <header className="hero" id="home">
-        <p className="eyebrow">Frontend Developer</p>
+        <div className="hero-topbar">
+          <p className="eyebrow">{t.eyebrow}</p>
+          <div className="language-switcher" role="group" aria-label={t.languageLabel}>
+            {SUPPORTED_LANGUAGES.map((lang) => (
+              <button
+                key={lang}
+                type="button"
+                className={lang === language ? 'lang-btn active' : 'lang-btn'}
+                onClick={() => setLanguage(lang)}
+                aria-pressed={lang === language}
+              >
+                {lang.toUpperCase()}
+              </button>
+            ))}
+          </div>
+        </div>
         <h1>
-          Creo prodotti web veloci,
-          <span> moderni e memorabili.</span>
+          {t.heroTitleStart}
+          <span>{t.heroTitleAccent}</span>
         </h1>
-        <p className="lead">
-          Ciao, sono Marco. Sviluppo interfacce React + TypeScript con attenzione
-          al dettaglio, performance e conversione.
-        </p>
+        <p className="lead">{t.lead}</p>
         <div className="hero-actions">
           <a href="#projects" className="btn btn-primary">
-            Vedi progetti
+            {t.ctaProjects}
           </a>
           <a href="#contact" className="btn btn-ghost">
-            Contattami
+            {t.ctaContact}
           </a>
         </div>
       </header>
 
       <section className="panel" id="about">
-        <h2>Chi sono</h2>
-        <p>
-          Negli ultimi anni ho lavorato su SaaS, e-commerce e tool interni,
-          traducendo esigenze di business in esperienze chiare e scalabili.
-        </p>
+        <h2>{t.aboutTitle}</h2>
+        <p>{t.aboutText}</p>
       </section>
 
       <section className="panel" id="projects">
         <div className="section-title">
-          <h2>Progetti selezionati</h2>
-          <p>Una selezione di lavori recenti orientati a risultati concreti.</p>
+          <h2>{t.projectsTitle}</h2>
+          <p>{t.projectsSubtitle}</p>
         </div>
         <div className="project-grid">
-          {projects.map((project) => (
+          {t.projects.map((project) => (
             <article key={project.title} className="project-card">
               <h3>{project.title}</h3>
               <p>{project.description}</p>
@@ -79,7 +77,7 @@ function App() {
                   <li key={item}>{item}</li>
                 ))}
               </ul>
-              <a href={project.link}>Apri case study</a>
+              <a href={project.link}>{t.projectCta}</a>
             </article>
           ))}
         </div>
@@ -87,38 +85,32 @@ function App() {
 
       <section className="panel split" id="skills">
         <div>
-          <h2>Competenze</h2>
-          <p>
-            Dalla prototipazione al rilascio, seguo il ciclo completo del
-            prodotto con approccio data-driven.
-          </p>
+          <h2>{t.skillsTitle}</h2>
+          <p>{t.skillsText}</p>
         </div>
         <ul className="skill-list">
-          {skills.map((skill) => (
+          {t.skills.map((skill) => (
             <li key={skill}>{skill}</li>
           ))}
         </ul>
       </section>
 
       <section className="panel contact" id="contact">
-        <h2>Parliamo del tuo prossimo progetto</h2>
-        <p>
-          Se vuoi migliorare il tuo prodotto digitale o lanciare qualcosa di
-          nuovo, scrivimi e fissiamo una call.
-        </p>
+        <h2>{t.contactTitle}</h2>
+        <p>{t.contactText}</p>
         <a className="btn btn-primary" href="mailto:ciao@tuodominio.it">
           ciao@tuodominio.it
         </a>
       </section>
 
       <footer className="footer">
-        <p>© {new Date().getFullYear()} Marco Rossi</p>
+        <p>© {new Date().getFullYear()} Davide Carboni</p>
         <div>
           <a href="https://github.com/" target="_blank" rel="noreferrer">
-            GitHub
+            {t.footerLinks.github}
           </a>
           <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
-            LinkedIn
+            {t.footerLinks.linkedin}
           </a>
         </div>
       </footer>
