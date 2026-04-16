@@ -1,0 +1,45 @@
+name: "Lunar Lake Dev Config"
+version: "1.0.0"
+schema: "v1"
+
+# Modelli per Chat e Azioni
+models:
+  - name: "Deepseek-coder-v2-lite-instruct"
+    provider: "lmstudio"
+    model: "deepseek-coder-v2-lite-instruct" # Sostituito con il nome reale
+    apiBase: "http://localhost:1234/v1"
+
+# Modello specifico per l'indicizzazione del codice (RAG)
+embeddingsProvider:
+  provider: "lmstudio"
+  model: "text-embedding-nomic-embed-text-v1.5"
+  apiBase: "http://localhost:1234/v1"
+
+# Modello per l'autocompletamento (Tab)
+tabAutocompleteModel:
+  name: "Autocomplete"
+  provider: "lmstudio"
+  model: "deepseek-coder-v2-lite-instruct"
+  apiBase: "http://localhost:1234/v1"
+
+# Opzioni per l'autocompletamento automatico
+tabAutocompleteOptions:
+  useCopyBuffer: true
+  maxPromptTokens: 400
+  debounceDelay: 300
+
+# Abilitazione funzioni autonome e contestuali
+contextProviders:
+  - name: "codebase"
+  - name: "folder"
+  - name: "diff"
+
+experimental:
+  readThenWrite: true
+  modelRoles:
+    inlineEdit: "deepseek-coder-v2-lite-instruct" # Sostituito qui per coerenza
+
+# Interfaccia Utente
+ui:
+  fontSize: 14
+  displayAroundCursor: true

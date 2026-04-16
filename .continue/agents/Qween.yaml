@@ -1,0 +1,39 @@
+name: "Lunar Lake Dev Config"
+version: "1.0.0"
+schema: "v1"
+
+models:
+  - name: "Qwen3-30b"
+    provider: "lmstudio"
+    model: "qwen3-coder-30b-a3b-instruct"
+    apiBase: "http://localhost:1234/v1"
+  - name: "Qwen2.5-3b"
+    provider: "lmstudio"
+    model: "qwen2.5-coder-3b-instruct"
+    apiBase: "http://localhost:1234/v1"
+
+# Cette section est CRUCIALE pour corriger l'erreur "No chat model selected"
+selectedModelRoles:
+  chat: "Qwen3-30b"
+  edit: "Qwen2.5-3b"
+  tasks: "Qwen3-30b"
+
+embeddingsProvider:
+  provider: "lmstudio"
+  model: "text-embedding-nomic-embed-text-v1.5"
+  apiBase: "http://localhost:1234/v1"
+
+tabAutocompleteModel:
+  name: "Autocomplete"
+  provider: "lmstudio"
+  model: "qwen2.5-coder-3b-instruct"
+  apiBase: "http://localhost:1234/v1"
+
+contextProviders:
+  - name: "codebase"
+  - name: "folder"
+  - name: "diff"
+
+# Désactivez temporairement readThenWrite pour stabiliser
+experimental:
+  readThenWrite: false

@@ -98,8 +98,8 @@ function App() {
       <section className="panel contact" id="contact">
         <h2>{t.contactTitle}</h2>
         <p>{t.contactText}</p>
-        <a className="btn btn-primary" href="mailto:ciao@tuodominio.it">
-          ciao@tuodominio.it
+        <a className="btn btn-primary" href="mailto:studio.ing.dci@gmail.com">
+          studio.ing.dci@gmail.com
         </a>
       </section>
 
